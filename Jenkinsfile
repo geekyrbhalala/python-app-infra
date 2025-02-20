@@ -15,7 +15,7 @@ pipeline {
 
                 // Clone the Git repository
                 git branch: 'main',
-                    url: 'https://github.com/geekyrbhalala/python-rest-api.git'
+                    url: 'https://github.com/geekyrbhalala/python-app-infra.git'
 
                 sh "ls -lart"
             }
