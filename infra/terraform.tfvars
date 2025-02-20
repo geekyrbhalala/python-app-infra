@@ -11,4 +11,4 @@ ec2_ami_id = "ami-055943271915205db"
 
 public_key = "aws-ec2-instance-key"
 
-domain_name = "geekyrbhalala_online"
+domain_name = "geekyrbhalala.online"
