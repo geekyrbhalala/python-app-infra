@@ -39,9 +39,8 @@ else
     echo "requirements.txt not found. Skipping dependency installation."
 fi
 
-# Verify installations
-python3 --version
-pip3 --version
-git --version
+echo 'Waiting for 30 seconds before running the app.py'
+yes | sudo setsid python3 -u app.py &
+sleep 30
 
 echo "Setup completed successfully!"
