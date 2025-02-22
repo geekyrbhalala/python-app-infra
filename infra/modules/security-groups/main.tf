@@ -61,20 +61,6 @@ resource "aws_security_group" "ec2_sg_ssh_http" {
   }
 }
 
-# Security Group for RDS
-resource "aws_security_group" "rds_mysql_sg" {
-  name        = "rds-sg"
-  description = "Allow access to RDS from EC2 present in public subnet"
-  vpc_id      = var.vpc_id
-
-  ingress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
-    cidr_blocks = var.public_subnet_cidr_block # replace with your EC2 instance security group CIDR block
-  }
-}
-
 resource "aws_security_group" "ec2_sg_python_api" {
   name        = var.ec2_sg_name_for_python_api
   description = "Enable the Port 5000 for python api"
