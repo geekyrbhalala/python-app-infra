@@ -1,40 +1,47 @@
-# #! /bin/bash
-# cd /home/ubuntu
-# yes | sudo yum update
-# yes | sudo apt install python3 python3-pip
-# sudo git clone https://github.com/geekyrbhalala/python-rest-api.git
-# sleep 20
-# cd python-rest-api
-# yes | sudo pip3 install -r requirements.txt
-# echo 'Waiting for 30 seconds before running the app.py'
-# yes | sudo setsid python3 -u app.py &
-# sleep 30
-
 #!/bin/bash
+
+# Exit script on error
+set -e
 
 # Update the system
 yum update -y
 
-# Install Python 3 and pip
-yum install -y python3 python3-pip
+# Install required packages
+yum install -y python3 python3-pip git
 
-# Ensure pip is upgraded
-pip3 install --upgrade pip
+# Upgrade pip using yum to avoid conflicts
+yum upgrade -y python3-pip
 
-git clone https://github.com/geekyrbhalala/python-rest-api.git
+# Clone the GitHub repository
+REPO_URL="https://github.com/geekyrbhalala/python-rest-api.git"
+TARGET_DIR="python-rest-api"
 
-sleep 20
-cd python-rest-api
+if [ -d "$TARGET_DIR" ]; then
+    echo "Directory $TARGET_DIR already exists. Deleting and re-cloning..."
+    rm -rf "$TARGET_DIR"
+fi
+
+git clone "$REPO_URL"
+
+# Ensure the repository was cloned successfully
+if [ ! -d "$TARGET_DIR" ]; then
+    echo "Error: Failed to clone repository."
+    exit 1
+fi
+
+cd "$TARGET_DIR"
 
 # Install requirements if requirements.txt exists
 REQUIREMENTS_FILE="requirements.txt"
 if [ -f "$REQUIREMENTS_FILE" ]; then
-    pip3 install -r "$REQUIREMENTS_FILE"
+    python3 -m pip install -r "$REQUIREMENTS_FILE"
 else
     echo "requirements.txt not found. Skipping dependency installation."
 fi
 
-# Verify installation
+# Verify installations
 python3 --version
 pip3 --version
 git --version
+
+echo "Setup completed successfully!"
