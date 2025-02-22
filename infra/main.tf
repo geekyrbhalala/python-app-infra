@@ -69,13 +69,8 @@ module "aws_ceritification_manager" {
   hosted_zone_id = module.hosted_zone.hosted_zone_id
 }
 
-module "rds_db_instance" {
-  source               = "./modules/rds"
-  db_subnet_group_name = "dev_proj_1_rds_subnet_group"
-  subnet_groups        = tolist(module.networking.dev_proj_1_public_subnets)
-  rds_mysql_sg_id      = module.security_group.rds_mysql_sg_id
-  mysql_db_identifier  = "mydb"
-  mysql_username       = "dbuser"
-  mysql_password       = "dbpassword"
-  mysql_dbname         = "devprojdb"
+module "iam_dynamodb" {
+  source             = "./modules/iam-dynamodb"
+  role_name_prefix   = "myapp-ec2"
+  aws_region         = "ca-central-1"
 }
