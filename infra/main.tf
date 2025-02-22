@@ -70,7 +70,7 @@ module "aws_ceritification_manager" {
 }
 
 module "iam_dynamodb" {
-  source             = "./modules/iam-dynamodb"
-  role_name_prefix   = "myapp-ec2"
-  aws_region         = "ca-central-1"
+  source           = "./modules/iam-dynamodb"
+  role_name_prefix = "myapp-ec2"
+  aws_region       = "ca-central-1"
 }
