@@ -15,6 +15,12 @@ module "security_group" {
   ec2_sg_name_for_python_api = "SG for EC2 for enabling port 8080"
 }
 
+module "iam_dynamodb" {
+  source           = "./modules/iam-dynamodb"
+  role_name_prefix = "myapp-ec2"
+  aws_region       = "ca-central-1"
+}
+
 module "ec2" {
   source                     = "./modules/ec2"
   ami_id                     = var.ec2_ami_id
@@ -25,6 +31,7 @@ module "ec2" {
   sg_enable_ssh_https        = module.security_group.sg_ec2_sg_ssh_http_id
   ec2_sg_name_for_python_api = module.security_group.sg_ec2_for_python_api
   enable_public_ip_address   = true
+  iam_instance_profile       = module.iam_dynamodb.ec2_instance_profile_name 
   user_data_install_python   = templatefile("./modules/template/ec2_python_app.sh", {})
 }
 
@@ -69,8 +76,3 @@ module "aws_ceritification_manager" {
   hosted_zone_id = module.hosted_zone.hosted_zone_id
 }
 
-module "iam_dynamodb" {
-  source           = "./modules/iam-dynamodb"
-  role_name_prefix = "myapp-ec2"
-  aws_region       = "ca-central-1"
-}
