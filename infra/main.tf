@@ -19,7 +19,7 @@ module "ec2" {
   source                     = "./modules/ec2"
   ami_id                     = var.ec2_ami_id
   instance_type              = "t2.micro"
-  tag_name                   = "Ubuntu Linux EC2"
+  tag_name                   = "Amazon Linux EC2"
   public_key                 = var.public_key
   subnet_id                  = tolist(module.networking.dev_proj_1_public_subnets)[0]
   sg_enable_ssh_https        = module.security_group.sg_ec2_sg_ssh_http_id

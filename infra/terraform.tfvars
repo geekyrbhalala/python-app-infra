@@ -7,7 +7,7 @@ cidr_public_subnet   = ["11.0.1.0/24", "11.0.2.0/24"]
 cidr_private_subnet  = ["11.0.3.0/24", "11.0.4.0/24"]
 ca_availability_zone = ["ca-central-1a", "ca-central-1b"]
 
-ec2_ami_id = "ami-055943271915205db"
+ec2_ami_id = "ami-05073582a4b03d785"
 
 public_key = "aws-ec2-instance-key"
 
